@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform graphicsObject;
 
+    [SerializeField] private LayerMask groundMouseHitLayer;
+
+
     void Start()
     {
         if (instance == null)
@@ -34,7 +37,17 @@ public class PlayerController : MonoBehaviour
    
     void Update()
     {
-        
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMouseHitLayer))
+        {
+            Vector3 lookDirection = hit.point - transform.position;
+            lookDirection.y = transform.position.y;
+            if (lookDirection.sqrMagnitude>0.001f)
+            {
+                transform.forward = lookDirection.normalized;
+            }
+        }
+
         Vector3 movement = Vector3.zero;
         bool move = false;
         for (int i = 0; i < 4; i++)
@@ -58,6 +71,8 @@ public class PlayerController : MonoBehaviour
         //cc.Move(movement * acc * Time.deltaTime);
 
         cc.Move(speed * Time.deltaTime);
+
+       
 
     }
 
