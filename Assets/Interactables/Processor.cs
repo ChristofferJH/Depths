@@ -14,6 +14,9 @@ public class Processor : BaseInteractable
     public AudioSource audioSrc;
     public ParticleSystem particleSys;
 
+    public List<Behaviour> activeWhileWorking;
+
+
     public override void Start()
     {
         base.Start();
@@ -25,16 +28,22 @@ public class Processor : BaseInteractable
         if (working > 0.0f)
         {
             working -= Time.deltaTime;
-            transform.localScale = new Vector3(Mathf.Sin(working*scaleFreq)*0.1f+0.95f, Mathf.Cos(working * scaleFreq) *0.1f + 0.95f, Mathf.Sin(working * scaleFreq) * 0.1f + 0.95f);
             if (working < 0.0f)
             {
-                GameObject go = Instantiate(currentRecipe.Output.ObjectPrefab);
-                go.transform.position = outputTransform.position;
-                go.transform.rotation = outputTransform.rotation;
+                if (currentRecipe.Output != null)
+                {
+                    GameObject go = Instantiate(currentRecipe.Output.ObjectPrefab);
+                    go.transform.position = outputTransform.position;
+                    go.transform.rotation = outputTransform.rotation;
+                }
                 currentRecipe = null;
                 audioSrc.pitch = Random.Range(0.97f, 1.03f);
                 audioSrc.Play();
                 particleSys.Stop();
+                foreach (Behaviour b in activeWhileWorking)
+                {
+                    b.enabled = false;
+                }
             }
         }
         else
@@ -61,6 +70,10 @@ public class Processor : BaseInteractable
                     particleSys.Play();
                     Destroy(InteractableManager.instance.heldItem.gameObject);
                     InteractableManager.instance.heldItem = null;
+                    foreach (Behaviour b in activeWhileWorking)
+                    {
+                        b.enabled = true;
+                    }
                     return;
                 }
             }

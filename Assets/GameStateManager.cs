@@ -23,6 +23,9 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] private List<Vector3> debrisPositions = new List<Vector3>();
 
+
+    [SerializeField] private List<Light> lanterns;
+
     int droppedDebris = 0;
 
     void Start()
@@ -46,7 +49,7 @@ public class GameStateManager : MonoBehaviour
         }
         if (depth < 200f)
         {
-            mainLight.intensity = Mathf.Max(2f - depth * 0.05f, 0.0f);
+            mainLight.intensity = Mathf.Max(2f - depth * 0.2f, 0.1f);
         }
         bm.speed = Mathf.MoveTowards(bm.speed, bgSpeedTarget, bgAcc * Time.deltaTime);
 
@@ -54,6 +57,14 @@ public class GameStateManager : MonoBehaviour
         {
             DropDebris();
             droppedDebris++;
+        }
+
+        if (depth > 15)
+        {
+            foreach (Light l in lanterns)
+            {
+                l.enabled = true;
+            }
         }
     }
 

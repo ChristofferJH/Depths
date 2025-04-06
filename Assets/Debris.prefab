@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 565225368016124712}
   - component: {fileID: 5555204676312084624}
   - component: {fileID: 3287358805259902794}
-  m_Layer: 0
+  - component: {fileID: 9105781405433812147}
+  - component: {fileID: 1908611148845378513}
+  m_Layer: 9
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,5 +133,32 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &9105781405433812147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778672545339161517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bcb2d2e6665ba4fbc455ba7d427b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  dropOnDeath: {fileID: 2587003355367889772, guid: 8b67aa638b067c847bc1163765da5977,
+    type: 3}
+--- !u!114 &1908611148845378513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778672545339161517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb00908342f45f4488b25c68a2493522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

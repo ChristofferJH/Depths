@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     private CharacterController cc;
-
-
+    [SerializeField] private Animator anim;
+    
     [SerializeField] private Vector3 speed;
     private Rigidbody rb;
     [SerializeField] private float acc = 2.0f;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private LayerMask groundMouseHitLayer;
 
-
+    public PlayerItemUser playerItemUser;
     void Start()
     {
         if (instance == null)
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
         }
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
+        playerItemUser = GetComponent<PlayerItemUser>();
     }
    
     void Update()
@@ -41,10 +42,11 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMouseHitLayer))
         {
             Vector3 lookDirection = hit.point - transform.position;
-            lookDirection.y = transform.position.y;
+            lookDirection.y = 0f;
             if (lookDirection.sqrMagnitude>0.001f)
             {
-                transform.forward = lookDirection.normalized;
+                transform.rotation = Quaternion.LookRotation(lookDirection);
+                
             }
         }
 
@@ -69,6 +71,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //cc.Move(movement * acc * Time.deltaTime);
+
+
+        anim.SetFloat("Speed",speed.magnitude/maxSpeed);
 
         cc.Move(speed * Time.deltaTime);
 

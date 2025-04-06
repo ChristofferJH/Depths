@@ -6,6 +6,7 @@ public class BaseInteractable : MonoBehaviour
 {
     public MeshRenderer rend;
     private SphereCollider col;
+    public MeshFilter mf;
     public bool canBeUsed = true;
     private void OnTriggerEnter(Collider other)
     {
@@ -39,14 +40,14 @@ public class BaseInteractable : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         canBeUsed = true;
 
-        if (InteractableManager.instance.activeInteractable == null)
-        {
-            if (Vector3.Distance(col.ClosestPoint(PlayerController.instance.transform.position), transform.position) < col.radius)
-            {
-                InteractableManager.instance.activeInteractable = this;
+        //if (InteractableManager.instance.activeInteractable == null)
+        //{
+        //    if (Vector3.Distance(col.ClosestPoint(PlayerController.instance.transform.position), transform.position) < col.radius)
+        //    {
+        //        InteractableManager.instance.activeInteractable = this;
 
-            }
-        }
+        //    }
+        //}
         yield return null;
     }
 
@@ -54,6 +55,13 @@ public class BaseInteractable : MonoBehaviour
     {
         col = GetComponent<SphereCollider>();
         rend = GetComponent<MeshRenderer>();
+        mf = GetComponent<MeshFilter>();
+        InteractableManager.instance.interactables.Add(this);
+    }
+
+    public void OnDestroy()
+    {
+        InteractableManager.instance.interactables.Remove(this);
     }
 
     public virtual void Interact()

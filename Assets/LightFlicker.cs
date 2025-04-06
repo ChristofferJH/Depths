@@ -9,6 +9,9 @@ public class LightFlicker : MonoBehaviour
     [SerializeField] private float noiseAmplitude;
     [SerializeField] private float noiseFrequency;
     float initialAmplitude;
+
+
+
     void Start()
     {
         pointLight = GetComponent<Light>();
@@ -21,6 +24,6 @@ public class LightFlicker : MonoBehaviour
     {
         x += Time.deltaTime;
         y += Time.deltaTime*3.1f;
-        pointLight.intensity=Mathf.PerlinNoise(x* noiseFrequency, y* noiseFrequency+32.4f)* noiseAmplitude+ initialAmplitude-noiseAmplitude*0.5f;
+        pointLight.intensity = Mathf.PerlinNoise(x * noiseFrequency, y * noiseFrequency + 32.4f) * noiseAmplitude + initialAmplitude - noiseAmplitude * 0.5f;
     }
 }

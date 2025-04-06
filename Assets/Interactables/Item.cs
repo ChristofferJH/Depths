@@ -20,6 +20,11 @@ public class Item : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public void Use()
+    {
+        PlayerController.instance.playerItemUser.UseItem(scrItem.itemType);
+    }
+
     IEnumerator MoveToCorrectPosition()
     {
         Vector3 initialPosition = transform.localPosition;
