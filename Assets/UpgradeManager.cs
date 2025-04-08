@@ -37,6 +37,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.pickDmg:
                 if (GameStateManager.instance.gold >= pickDmgCost)
                 {
+                    GameStateManager.instance.gold -= pickDmgCost;
                     PlayerItemUser.instance.pickAxeDamage += 1;
                     pickDmgCost += 1;
                     pickDmgCostText.text = "Buy: " + pickDmgCost.ToString() + " gold";
@@ -50,6 +51,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.batDmg:
                 if (GameStateManager.instance.gold >= batDmgCost)
                 {
+                    GameStateManager.instance.gold -= batDmgCost;
                     PlayerItemUser.instance.batDamage += 1;
                     batDmgCost += 1;
                     batDmgCostText.text = "Buy: " + batDmgCost.ToString() + " gold";
@@ -63,6 +65,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.wrenchDmg:
                 if (GameStateManager.instance.gold >= wrenchDmgCost)
                 {
+                    GameStateManager.instance.gold -= wrenchDmgCost;
                     PlayerItemUser.instance.wrenchDamage -= 1;
                     wrenchDmgCost += 1;
                     wrenchDmgCostText.text = "Buy: " + wrenchDmgCost.ToString() + " gold";
@@ -76,6 +79,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.playerSpeed:
                 if (GameStateManager.instance.gold >= playerSpeedCost)
                 {
+                    GameStateManager.instance.gold -= playerSpeedCost;
                     PlayerController.instance.maxSpeed += 0.5f;
                     PlayerController.instance.acc += 0.25f;
                     PlayerController.instance.deacc += 0.25f;
@@ -92,6 +96,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.weightLimit:
                 if (GameStateManager.instance.gold >= weightLimitCost)
                 {
+                    GameStateManager.instance.gold -= weightLimitCost;
                     WeightManager.instance.maxWeight += 1;
                     weightLimitCost += 1;
                     weightLimitCostText.text = "Buy: " + weightLimitCost.ToString() + " gold";
@@ -106,6 +111,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.furnaceSpeed:
                 if (GameStateManager.instance.gold >= furnaceSpeedCost)
                 {
+                    GameStateManager.instance.gold -= furnaceSpeedCost;
                     furnace.recipes[0].workTime -= 2f;
                     furnaceSpeedCost += 1;
                     furnaceCostText.text = "Buy: " + furnaceSpeedCost.ToString() + " gold";
