@@ -44,7 +44,7 @@ public class InteractableManager : MonoBehaviour
 
     void Update()
     {
-        float minDist = 100f;
+        float minDist = 10f;
         int index = -1;
         Vector3 playerPos = PlayerController.instance.transform.position;
         for(int i=0;i<  interactables.Count;i++)
@@ -54,7 +54,7 @@ public class InteractableManager : MonoBehaviour
                 continue;
             }
             float dist = Vector3.Distance(interactables[i].transform.position, playerPos);
-            if (dist < 1.8f)
+            if (dist < 2.0f)
             {
                 if (dist < minDist)
                 {
@@ -80,6 +80,7 @@ public class InteractableManager : MonoBehaviour
                 if (activeInteractable != null)
                 {
                     activeInteractable.Interact();
+                    
                 }
             }
             else
@@ -108,7 +109,7 @@ public class InteractableManager : MonoBehaviour
                 if (useItemCooldown < 0f)
                 {
                     PlayerController.instance.playerItemUser.UseItem(heldItem.scrItem.itemType);
-                    useItemCooldown = 1f;
+                    useItemCooldown = 0.8f;
                 }
             }
         }

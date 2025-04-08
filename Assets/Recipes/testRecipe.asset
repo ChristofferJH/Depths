@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: testRecipe
   m_EditorClassIdentifier: 
   Inputs: 00000000
-  Output: {fileID: 11400000, guid: 1be105ee6de64b04285a59ca0193b09e, type: 2}
-  workTime: 5
+  Output: {fileID: 11400000, guid: 66358923ccc6ac64b946a596968b85ed, type: 2}
+  workTime: 15

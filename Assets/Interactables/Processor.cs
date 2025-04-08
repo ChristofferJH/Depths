@@ -23,6 +23,11 @@ public class Processor : BaseInteractable
         particleSys.Pause();
     }
 
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
+
     void Update()
     {
         if (working > 0.0f)
@@ -35,7 +40,9 @@ public class Processor : BaseInteractable
                     GameObject go = Instantiate(currentRecipe.Output.ObjectPrefab);
                     go.transform.position = outputTransform.position;
                     go.transform.rotation = outputTransform.rotation;
+
                 }
+                WeightManager.instance.weight -= 1;
                 currentRecipe = null;
                 audioSrc.pitch = Random.Range(0.97f, 1.03f);
                 audioSrc.Play();
@@ -65,10 +72,15 @@ public class Processor : BaseInteractable
             {
                 if (InteractableManager.instance.heldItem.scrItem.itemType == recipes[i].Inputs[k])
                 {
+                    if (InteractableManager.instance.heldItem.scrItem.heldType == ScriptableItem.HeldType.overHead)
+                    {
+                        PlayerController.instance.anim.SetBool("Hold", false);
+                    }
                     currentRecipe = recipes[i];
                     working = recipes[i].workTime;
                     particleSys.Play();
                     Destroy(InteractableManager.instance.heldItem.gameObject);
+                    WeightManager.instance.weight += 1;
                     InteractableManager.instance.heldItem = null;
                     foreach (Behaviour b in activeWhileWorking)
                     {

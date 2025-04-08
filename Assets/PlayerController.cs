@@ -7,13 +7,13 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     private CharacterController cc;
-    [SerializeField] private Animator anim;
+    public Animator anim;
     
     [SerializeField] private Vector3 speed;
     private Rigidbody rb;
-    [SerializeField] private float acc = 2.0f;
-    [SerializeField] private float deacc = 5.0f;
-    [SerializeField] private float maxSpeed = 10f;
+    public float acc = 2.0f;
+    public float deacc = 5.0f;
+    public float maxSpeed = 5f;
     private KeyCode[] movementKeys = { KeyCode.D, KeyCode.W, KeyCode.A, KeyCode.S };
     private Vector3[] movementVectors = { Vector3.right, Vector3.forward, Vector3.left, -Vector3.forward };
 
@@ -74,8 +74,8 @@ public class PlayerController : MonoBehaviour
 
 
         anim.SetFloat("Speed",speed.magnitude/maxSpeed);
-
-        cc.Move(speed * Time.deltaTime);
+        rb.velocity = new Vector3(0f,rb.velocity.y,0f)+speed;
+        //cc.Move(speed * Time.deltaTime*100f);
 
        
 

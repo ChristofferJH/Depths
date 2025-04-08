@@ -28,12 +28,25 @@ public class Interactable : BaseInteractable
 
     public override void Interact()
     {
-        
+
+        if (scrItem.itemType == ScriptableItem.ItemType.gold)
+        {
+            GameStateManager.instance.gold += 1;
+            GameStateManager.instance.PlayGoldSound();
+            Destroy(transform.gameObject);
+            return;
+        }
+
         GameObject go = Instantiate(scrItem.ItemPrefab);
         go.transform.SetPositionAndRotation(transform.position, transform.rotation);
         InteractableManager.instance.heldItem = go.GetComponent<Item>();
         InteractableManager.instance.activeInteractable = null;
         //InteractableManager.instance.ResetCurrentActive();
+
+        if (scrItem.heldType == ScriptableItem.HeldType.overHead)
+        {
+            PlayerController.instance.anim.SetBool("Hold", true);
+        }
         Destroy(transform.gameObject);
     }
 
@@ -41,8 +54,17 @@ public class Interactable : BaseInteractable
 
     public override void Start()
     {
+
+        WeightManager.instance.weight += 1;
         base.Start();
         
+    }
+
+    public override void OnDestroy()
+    {
+        
+        WeightManager.instance.weight -= 1;
+        base.OnDestroy();
     }
 
 

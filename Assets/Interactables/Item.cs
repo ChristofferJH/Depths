@@ -9,6 +9,8 @@ public class Item : MonoBehaviour
     {
         transform.parent = InteractableManager.instance.HoldingPositions[scrItem.heldType].parent;
         StartCoroutine(MoveToCorrectPosition());
+
+        WeightManager.instance.weight += 1;
     }
 
     public void Interact()
@@ -17,13 +19,25 @@ public class Item : MonoBehaviour
         go.transform.SetPositionAndRotation(InteractableManager.instance.dropPosition.position, InteractableManager.instance.dropPosition.rotation);
         go.GetComponent<Rigidbody>().AddForce(PlayerController.instance.transform.forward * 500f);
         go.GetComponentInChildren<BaseInteractable>().DelayBeingUseable();
+        if (scrItem.heldType == ScriptableItem.HeldType.overHead)
+        {
+            PlayerController.instance.anim.SetBool("Hold", false);
+        }
         Destroy(this.gameObject);
+
+      
     }
 
-    public void Use()
+
+    public void OnDestroy()
     {
-        PlayerController.instance.playerItemUser.UseItem(scrItem.itemType);
+        WeightManager.instance.weight -= 1;
     }
+
+    //public void Use()
+    //{
+    //    PlayerController.instance.playerItemUser.UseItem(scrItem.itemType);
+    //}
 
     IEnumerator MoveToCorrectPosition()
     {

@@ -59,7 +59,7 @@ public class BaseInteractable : MonoBehaviour
         InteractableManager.instance.interactables.Add(this);
     }
 
-    public void OnDestroy()
+    public virtual void OnDestroy()
     {
         InteractableManager.instance.interactables.Remove(this);
     }
